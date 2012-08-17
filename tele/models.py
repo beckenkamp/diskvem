@@ -1,36 +1,7 @@
 from django.db import models
 
-class Empresa(models.Model):
-    cnpj = models.CharField(max_length=14, blank=True)
-    nome = models.CharField(max_length=200)
-    slug = models.SlugField()
-    endereco = models.CharField(max_length=300, blank=True)
-    bairro = models.ManyToManyField(Bairro)
-    contato = models.ForeignKey(Contato)
-    pagamento = models.ManyToManyField(Pagamento)
-    categoria = models.ManyToManyField(Categoria)
-    verificado = models.BooleanField()
-    data_criacao = models.DateTimeField(auto_now_add=True)
-    data_alteracao = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.nome
-
-
-class Bairro(models.Model):
+class Pais(models.Model):
     nome = models.CharField(max_length=100)
-    cidade = models.ForeignKey(Cidade)
-    data_criacao = models.DateTimeField(auto_now_add=True)
-    data_alteracao = models.DateTimeField(auto_now=True)
-
-    def __unuicode__(self):
-        return self.nome
-
-
-class Cidade(models.Model):
-    nome = models.CharField(max_length=100)
-    estado = models.ForeignKey(Estado)
-    ddd = models.IntegerField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
@@ -48,8 +19,10 @@ class Estado(models.Model):
         return self.nome
 
 
-class Pais(models.Model):
+class Cidade(models.Model):
     nome = models.CharField(max_length=100)
+    estado = models.ForeignKey(Estado)
+    ddd = models.IntegerField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
@@ -57,18 +30,18 @@ class Pais(models.Model):
         return self.nome
 
 
-class Telefone(models.Model):
-    number = models.IntegerField()
-    empresa = models.ForeignKey(Empresa)
+class Bairro(models.Model):
+    nome = models.CharField(max_length=100)
+    cidade = models.ForeignKey(Cidade)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.number
+    def __unuicode__(self):
+        return self.nome
 
 
 class Categoria(models.Model):
-    parent = models.ForeignKey(Categoria)
+    parent = models.ForeignKey('self')
     nome = models.CharField(max_length=100)
     slug = models.SlugField()
     data_criacao = models.DateTimeField(auto_now_add=True)
@@ -88,13 +61,38 @@ class Pagamento(models.Model):
         return self.nome
 
 
+class Empresa(models.Model):
+    cnpj = models.CharField(max_length=14, blank=True)
+    nome = models.CharField(max_length=200)
+    slug = models.SlugField()
+    endereco = models.CharField(max_length=300, blank=True)
+    bairro = models.ManyToManyField(Bairro)
+    pagamento = models.ManyToManyField(Pagamento)
+    categoria = models.ManyToManyField(Categoria)
+    verificado = models.BooleanField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_alteracao = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.nome
+
+
 class Contato(models.Model):
     nome = models.CharField(max_length=100)
-    telefone = models.CharField(max_lenght=15)
+    telefone = models.CharField(max_length=15)
     empresa = models.ForeignKey(Empresa)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.nome
-    
+
+
+class Telefone(models.Model):
+    number = models.IntegerField()
+    empresa = models.ForeignKey(Empresa)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_alteracao = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.number
