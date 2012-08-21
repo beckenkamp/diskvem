@@ -1,5 +1,25 @@
 <h1>Diskvem</h1>
 
 {% for empresa in empresas %}
-    {{ empresa.nome }}<br />
+    <hr />
+    {% if empresa.verificado %}
+        <strong>Verificado</strong>
+    {% endif %}
+    <ul>
+    {% for categoria in empresa.categoria.all %}
+        <li>{{ categoria }}</li>
+    {% endfor %}
+    </ul>
+    {{ empresa }}<br />
+    {{ empresa.endereco }}<br />
+    <ul>
+    {% for pagamento in empresa.pagamento.all %}
+        <li>{{ pagamento }}</li>
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for tel in empresa.get_telefones %}
+        <li>{{ tel }}</li>
+    {% endfor %}
+    </ul>
 {% endfor %}

@@ -78,6 +78,9 @@ class Empresa(models.Model):
     verificado = models.BooleanField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
+    
+    def get_telefones(self):
+        return Telefone.objects.filter(empresa_id=self.id)
 
     def __unicode__(self):
         return self.nome
@@ -97,8 +100,9 @@ class Contato(models.Model):
 class Telefone(models.Model):
     number = models.IntegerField()
     empresa = models.ForeignKey(Empresa)
+    cidade = models.ForeignKey(Cidade)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.number
+        return '(' + str(self.cidade.ddd) + ') ' + str(self.number)
