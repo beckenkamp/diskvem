@@ -5,6 +5,9 @@ class Pais(models.Model):
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = 'paises'
+
     def __unicode__(self):
         return self.nome
 
@@ -36,12 +39,12 @@ class Bairro(models.Model):
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
 
-    def __unuicode__(self):
+    def __unicode__(self):
         return self.nome
 
 
 class Categoria(models.Model):
-    parent = models.ForeignKey('self')
+    parent = models.ForeignKey('self', blank=True, null=True)
     nome = models.CharField(max_length=100)
     slug = models.SlugField()
     data_criacao = models.DateTimeField(auto_now_add=True)
@@ -58,7 +61,10 @@ class Pagamento(models.Model):
     data_alteracao = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.nome
+        if len(self.bandeira) > 0:
+            return self.nome + ' (' + self.bandeira + ')'
+        else:
+            return self.nome
 
 
 class Empresa(models.Model):

@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'diskvem.views.home', name='home'),
+    url(r'^$', 'tele.views.home', name='home'),
     # url(r'^diskvem/', include('diskvem.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
