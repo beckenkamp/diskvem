@@ -75,6 +75,7 @@ class Empresa(models.Model):
     bairro = models.ManyToManyField(Bairro)
     pagamento = models.ManyToManyField(Pagamento)
     categoria = models.ManyToManyField(Categoria)
+    logotipo = models.ImageField(upload_to='logos')
     verificado = models.BooleanField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
