@@ -1,27 +1,36 @@
-<h1>Diskvem</h1>
+{% extends "base.html" %}
 
-{% for empresa in empresas %}
-    {% if empresa.ativo %}
-        <hr />
-        {% if empresa.verificado %}
-            <strong>Verificado</strong>
-        {% endif %}
-        <ul>
-        {% for categoria in empresa.categoria.all %}
-            <li>{{ categoria }}</li>
-        {% endfor %}
-        </ul>
-        {{ empresa }}<br />
-        {{ empresa.endereco }}<br />
-        <ul>
-        {% for pagamento in empresa.pagamento.all %}
-            <li>{{ pagamento }}</li>
-        {% endfor %}
-        </ul>
-        <ul>
-        {% for tel in empresa.get_telefones %}
-            <li>{{ tel }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}    
-{% endfor %}
+
+{% block body %}
+    
+    <h1>Diskvem</h1>
+    
+    {% include "tele/search_form.html" %}
+    
+    {% for empresa in empresas %}
+        {% if empresa.ativo %}
+            <hr />
+            {% if empresa.verificado %}
+                <strong>Verificado</strong>
+            {% endif %}
+            <ul>
+            {% for categoria in empresa.categoria.all %}
+                <li>{{ categoria }}</li>
+            {% endfor %}
+            </ul>
+            {{ empresa }}<br />
+            {{ empresa.endereco }}<br />
+            <ul>
+            {% for pagamento in empresa.pagamento.all %}
+                <li>{{ pagamento }}</li>
+            {% endfor %}
+            </ul>
+            <ul>
+            {% for tel in empresa.get_telefones %}
+                <li>{{ tel }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}    
+    {% endfor %}
+
+{% endblock %}
