@@ -30,6 +30,11 @@
                 <li>{{ tel }}</li>
             {% endfor %}
             </ul>
+            <ul>
+            {% for tag in empresa.tag.all %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+            </ul>
         {% endif %}    
     {% endfor %}
 

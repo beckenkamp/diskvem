@@ -52,6 +52,15 @@ class Categoria(models.Model):
 
     def __unicode__(self):
         return self.nome
+    
+class Tag(models.Model):
+    nome = models.CharField(max_length=100)
+    slug = models.SlugField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_alteracao = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.nome
 
 
 class Pagamento(models.Model):
@@ -75,6 +84,7 @@ class Empresa(models.Model):
     bairro = models.ManyToManyField(Bairro)
     pagamento = models.ManyToManyField(Pagamento)
     categoria = models.ManyToManyField(Categoria)
+    tag = models.ManyToManyField(Tag)
     logotipo = models.ImageField(upload_to='logos')
     verificado = models.BooleanField()
     ativo = models.BooleanField()
