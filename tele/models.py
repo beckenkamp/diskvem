@@ -77,6 +77,7 @@ class Empresa(models.Model):
     categoria = models.ManyToManyField(Categoria)
     logotipo = models.ImageField(upload_to='logos')
     verificado = models.BooleanField()
+    ativo = models.BooleanField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
     
