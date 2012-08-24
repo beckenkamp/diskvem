@@ -1,7 +1,10 @@
+{{ form.errors }}
 <form method="post">
     {% csrf_token %}
-    <input type="text" name="search_term" id="search_term_field" />
+    
+    {{ form.search_term }}
+    {{ form.search_bairro }}
     <input type="submit" name="submit_search_term" id="submit_search_term_button" value="Procurar" />
 </form>
 
-{{ teste }}
+{{ search_term }}
