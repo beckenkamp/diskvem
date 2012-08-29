@@ -7,6 +7,22 @@
     
     {% include "tele/search_form.html" %}
     
+    <ul>
+    {% for index, categoria in categorias %}
+        <li>{{ index }}
+            <ul>
+        {% for subindex, sub in categoria %}
+            <li>{{ subindex }}
+            <ul>
+            {% for subsubindex, subsub in sub %}
+                <li>{{ subsubindex }}</li>
+            {% endfor %}
+            </ul></li>
+        {% endfor %}
+        </ul></li>
+    {% endfor %}
+    </ul>
+    
     {% for empresa in empresas %}
         {% if empresa.ativo %}
             <hr />

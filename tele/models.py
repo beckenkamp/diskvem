@@ -49,7 +49,7 @@ class Categoria(models.Model):
     slug = models.SlugField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
-
+    
     def __unicode__(self):
         return self.nome
     
