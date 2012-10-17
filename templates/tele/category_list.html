@@ -1,0 +1,23 @@
+<h3>Categorias</h3>
+            
+<ul>
+    {% for index, categoria in categorias %}
+        <li>
+            <a href="/categoria/{{ index.slug }}">{{ index }}</a>
+            <ul>
+            {% for subindex, sub in categoria %}
+                <li>
+                    <a href="/categoria/{{ subindex.slug }}">{{ subindex }}</a>
+                    <ul>
+                        {% for subsubindex, subsub in sub %}
+                            <li>
+                                <a href="/categoria/{{ subsubindex.slug }}">{{ subsubindex }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
