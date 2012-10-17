@@ -3,55 +3,112 @@
 
 {% block body %}
     
-    <h1>Diskvem</h1>
+    <div class="hero-unit">
+        <h1>Diskvem</h1>
+        <p>Tudo que você precisa entregue em sua casa!</p>
+    </div>       
     
-    {% include "tele/search_form.html" %}
+    <div class="row">        
+        <div class="span3">
+            
+            <h3>Categorias</h3>
+            
+            <ul>
+            {% for index, categoria in categorias %}
+                <li>{{ index }}
+                    <ul>
+                {% for subindex, sub in categoria %}
+                    <li>{{ subindex }}
+                    <ul>
+                    {% for subsubindex, subsub in sub %}
+                        <li>{{ subsubindex }}</li>
+                    {% endfor %}
+                    </ul></li>
+                {% endfor %}
+                </ul></li>
+            {% endfor %}
+            </ul>
+            
+            <!-- Ads -->
+            <img src="http://placehold.it/250x300" />
+
+        </div>
+        
+        <div class="span6">
+            
+            {% include "tele/search_form.html" %}
     
-    <ul>
-    {% for index, categoria in categorias %}
-        <li>{{ index }}
-            <ul>
-        {% for subindex, sub in categoria %}
-            <li>{{ subindex }}
-            <ul>
-            {% for subsubindex, subsub in sub %}
-                <li>{{ subsubindex }}</li>
+            {% for empresa in empresas %}
+                {% if empresa.ativo %}
+                    
+                    <div style="clear: both"></div>
+                    <hr />
+                    
+                    <div class="telefones" style="width: 30%; float:right;">
+                        {% for tel in empresa.get_telefones %}
+                            <strong>{{ tel }}</strong><br />
+                        {% endfor %}
+                    </div>
+                    
+                    <h4>
+                        {{ empresa }}
+                    
+                        {% if empresa.verificado %}
+                           <span class="label label-success">Verificado</span>
+                        {% endif %}
+                    </h4>
+                    
+                    <p>{{ empresa.endereco }}</p>
+                    
+                    <div style="clear: both"></div>
+                    
+                    <div class="categorias-tags" style="width:48%; float:left;">
+                        {% for categoria in empresa.categoria.all %}
+                            {% if forloop.first %}
+                            <p>
+                            {% endif %}
+                        
+                            {% if not forloop.last %}
+                                {{ categoria }},
+                            {% else %}
+                                {{ categoria }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% for tag in empresa.tag.all %}
+                            {% if forloop.first %}
+                            <p>
+                            {% endif %}
+                        
+                            {% if not forloop.last %}
+                                {{ tag }},
+                            {% else %}
+                                {{ tag }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="forma-pagamento" style="width:48%; float:right;">
+                        <p>Pagamento com:</p>
+                        {% for pagamento in empresa.pagamento.all %}
+                            {% if not forloop.last %}
+                                {{ pagamento }},
+                            {% else %}
+                                {{ pagamento }}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                {% endif %}    
             {% endfor %}
-            </ul></li>
-        {% endfor %}
-        </ul></li>
-    {% endfor %}
-    </ul>
     
-    {% for empresa in empresas %}
-        {% if empresa.ativo %}
-            <hr />
-            {% if empresa.verificado %}
-                <strong>Verificado</strong>
-            {% endif %}
-            <ul>
-            {% for categoria in empresa.categoria.all %}
-                <li>{{ categoria }}</li>
-            {% endfor %}
-            </ul>
-            {{ empresa }}<br />
-            {{ empresa.endereco }}<br />
-            <ul>
-            {% for pagamento in empresa.pagamento.all %}
-                <li>{{ pagamento }}</li>
-            {% endfor %}
-            </ul>
-            <ul>
-            {% for tel in empresa.get_telefones %}
-                <li>{{ tel }}</li>
-            {% endfor %}
-            </ul>
-            <ul>
-            {% for tag in empresa.tag.all %}
-                <li>{{ tag }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}    
-    {% endfor %}
+        </div>
+        
+        <div class="span3">
+            <!-- Ads -->
+            <img src="http://placehold.it/250x500" />
+        </div>
+        
+    </div>
 
 {% endblock %}

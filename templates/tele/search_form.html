@@ -1,10 +1,8 @@
 {{ form.errors }}
-<form method="post">
+<form method="post" class="form-inline" style="text-align: center;">
     {% csrf_token %}
     
-    {{ form.search_term }}
+    <input id="id_search_term" type="text" name="search_term" maxlength="300" class="input-large" style="height:30px" placeholder="O que você deseja?">
     {{ form.search_bairro }}
-    <input type="submit" name="submit_search_term" id="submit_search_term_button" value="Procurar" />
+    <input type="submit" name="submit_search_term" id="submit_search_term_button" value="Procurar" class="btn btn-success" />
 </form>
-
-{{ search_term }}
