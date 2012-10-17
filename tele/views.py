@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
-from tele.models import Empresa, Telefone
+from tele.models import Empresa, Telefone, Categoria
 from tele.forms import SearchForm
 import tele.search as search_class
 import tele.categorias as categorias_class
@@ -24,4 +24,15 @@ def home(request):
     else:
         form = SearchForm()
         return TemplateResponse(request, 'tele/home.html', {'form': form, 'categorias': category_list})
+    
+def category(request, slug):
+    
+    form = SearchForm()
+    cat = categorias_class.Categorias()
+    category_list = cat.list()
+    
+    categoria_id = Categoria.objects.filter(slug__exact=slug)
+    empresas = Empresa.objects.filter(categoria=categoria_id)
+    
+    return TemplateResponse(request, 'tele/home.html', {'form': form, 'categorias': category_list, 'categoria_selecionada': slug, 'empresas': empresas,})
         

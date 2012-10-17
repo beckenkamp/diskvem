@@ -6,28 +6,12 @@
     <div class="hero-unit">
         <h1>Diskvem</h1>
         <p>Tudo que você precisa entregue em sua casa!</p>
-    </div>       
+    </div>   
     
     <div class="row">        
         <div class="span3">
             
-            <h3>Categorias</h3>
-            
-            <ul>
-            {% for index, categoria in categorias %}
-                <li>{{ index }}
-                    <ul>
-                {% for subindex, sub in categoria %}
-                    <li>{{ subindex }}
-                    <ul>
-                    {% for subsubindex, subsub in sub %}
-                        <li>{{ subsubindex }}</li>
-                    {% endfor %}
-                    </ul></li>
-                {% endfor %}
-                </ul></li>
-            {% endfor %}
-            </ul>
+            {% include "tele/category_list.html" %}            
             
             <!-- Ads -->
             <img src="http://placehold.it/250x300" />
@@ -37,7 +21,7 @@
         <div class="span6">
             
             {% include "tele/search_form.html" %}
-    
+            
             {% for empresa in empresas %}
                 {% if empresa.ativo %}
                     
@@ -75,7 +59,7 @@
                             {% endif %}
                         {% endfor %}
                         
-                        {% for tag in empresa.tag.all %}
+                        <!--{% for tag in empresa.tag.all %}
                             {% if forloop.first %}
                             <p>
                             {% endif %}
@@ -85,7 +69,7 @@
                             {% else %}
                                 {{ tag }}</p>
                             {% endif %}
-                        {% endfor %}
+                        {% endfor %}-->
                     </div>
                     
                     <div class="forma-pagamento" style="width:48%; float:right;">

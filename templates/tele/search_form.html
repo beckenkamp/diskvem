@@ -1,8 +1,15 @@
 {{ form.errors }}
-<form method="post" class="form-inline" style="text-align: center;">
+<form method="post" class="form-inline" style="text-align: center;" action="/">
     {% csrf_token %}
     
     <input id="id_search_term" type="text" name="search_term" maxlength="300" class="input-large" style="height:30px" placeholder="O que você deseja?">
     {{ form.search_bairro }}
     <input type="submit" name="submit_search_term" id="submit_search_term_button" value="Procurar" class="btn btn-success" />
 </form>
+
+
+{% if categoria_selecionada %}
+    <div class="page-header">
+        <h1>Categoria <small>{{categoria_selecionada}}</small></h1>
+    </div>
+{% endif %}
