@@ -1,4 +1,6 @@
-from tele.models import Categoria
+from tele.models import Empresa, Telefone, Categoria
+from django.db.models import Q
+import operator
 
 class Categorias:
     
@@ -18,3 +20,17 @@ class Categorias:
             lista.append([categoria, self.get_sub(categoria)])
             
         return lista
+    
+    def get_empresas_by_categoria(self, cat):
+        categorias = Categoria.objects.filter(parent=cat)
+        qtd = categorias.count()
+        
+        if qtd > 0:
+            filters = reduce(operator.or_, (Q(categoria=cat) | Q(categoria=cat) for cat in categorias))
+        else:
+            filters = Q(categoria=cat)
+            
+        empresas = Empresa.objects.filter(filters)
+            
+        return empresas
+        

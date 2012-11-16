@@ -32,7 +32,8 @@ def category(request, slug):
     category_list = cat.list()
     
     categoria_id = Categoria.objects.filter(slug__exact=slug)
-    empresas = Empresa.objects.filter(categoria=categoria_id)
+    #empresas = Empresa.objects.filter(categoria=categoria_id)
+    empresas = cat.get_empresas_by_categoria(categoria_id)
     
     return TemplateResponse(request, 'tele/home.html', {'form': form, 'categorias': category_list, 'categoria_selecionada': slug, 'empresas': empresas,})
         

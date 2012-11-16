@@ -22,6 +22,8 @@
             
             {% include "tele/search_form.html" %}
             
+            {{ empresas }}
+            
             {% for empresa in empresas %}
                 {% if empresa.ativo %}
                     
@@ -83,7 +85,10 @@
                         {% endfor %}
                     </div>
                     
-                {% endif %}    
+                {% endif %}
+                
+            {% empty %}
+                <p>Nenhum resultado encontrado</p>    
             {% endfor %}
     
         </div>
